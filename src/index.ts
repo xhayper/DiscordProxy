@@ -74,10 +74,11 @@ const PROJECT_PATH = "https://github.com/xhayper/DiscordProxy";
       }
     },
     replyOptions: {
-      rewriteRequestHeaders: (_, headers) => ({
-        ...headers,
-        "user-agent": `DiscordProxy/${pkg.version} (${PROJECT_PATH})`,
-      }),
+      rewriteRequestHeaders: (_, headers) => {
+        headers["user-agent"] = `DiscordProxy/${pkg.version} (${PROJECT_PATH})`;
+        delete headers["roblox-id"];
+        return headers;
+      },
     },
   });
 
