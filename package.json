@@ -31,7 +31,8 @@
   },
   "devDependencies": {
     "@types/node": "^20.5.7",
-    "del-cli": "^5.1.0"
+    "del-cli": "^5.1.0",
+    "typescript": "^5.2.2"
   },
   "packageManager": "pnpm@8.7.1"
 }
