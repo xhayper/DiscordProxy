@@ -102,7 +102,9 @@ const PROJECT_PATH = "https://github.com/xhayper/DiscordProxy";
     reply.redirect(PROJECT_PATH);
   });
 
-  app.listen({ port: parseInt(process.env.PORT ?? "3000") }).then((host) => {
-    console.log(`Listening on ${host}`);
-  });
+  app
+    .listen({ host: "0.0.0.0", port: parseInt(process.env.PORT ?? "3000") })
+    .then((host) => {
+      console.log(`Listening on ${host}`);
+    });
 })();
