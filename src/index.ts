@@ -88,6 +88,8 @@ const PROJECT_PATH = "https://github.com/xhayper/DiscordProxy";
           .send({ error: "You are not allowed to use this proxy." });
         return done();
       }
+
+      return done();
     },
     replyOptions: {
       rewriteRequestHeaders: (_, headers) => {
