@@ -21,7 +21,8 @@ const PROJECT_PATH = "https://github.com/xhayper/DiscordProxy";
   const config = JSON.parse(
     await fs.readFile(path.join(__dirname, "../", "config.json"), "utf-8")
   ) as {
-    onlyRoblox: boolean;
+    onlyRobloxServer: boolean;
+    placeIds: string[];
     apiKeys: string[];
   };
   const pkg = JSON.parse(
@@ -29,6 +30,9 @@ const PROJECT_PATH = "https://github.com/xhayper/DiscordProxy";
   ) as {
     version: string;
   };
+
+  if (config.placeIds.length > 0)
+    console.log("Place ID list is not empty! Tracking enabled.");
 
   const apiKeys = new Set(config.apiKeys);
 
@@ -60,11 +64,23 @@ const PROJECT_PATH = "https://github.com/xhayper/DiscordProxy";
     prefix: "/api",
     rewritePrefix: "/api",
     preHandler: (request, reply, done) => {
-      if (!config.onlyRoblox) return done();
+      if (!config.onlyRobloxServer) return done();
 
       const ip = request.ip;
 
       if (LOCAL_IP.includes(ip)) return done();
+
+      if (config.placeIds.length > 0) {
+        const headers = request.headers;
+        const placeId = headers["roblox-id"];
+
+        if (!placeId || !config.placeIds.includes(placeId as string)) {
+          reply
+            .code(403)
+            .send({ error: "You are not allowed to use this proxy." });
+          return done();
+        }
+      }
 
       if (!robloxRanges.check(ip)) {
         reply
