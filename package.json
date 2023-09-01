@@ -1,7 +1,7 @@
 {
   "name": "discordproxy",
   "version": "1.0.0",
-  "description": "",
+  "description": "High performance (?) and non tracking proxy server for Discord",
   "main": "dist/index.js",
   "private": true,
   "scripts": {
