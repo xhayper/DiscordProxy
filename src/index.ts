@@ -4,7 +4,6 @@ import "dotenv/config";
 
 import fastifyUnderpressure from "@fastify/under-pressure";
 import fastifyRatelimit from "@fastify/rate-limit";
-import fastifyBearer from "@fastify//bearer-auth";
 import fastifyCompress from "@fastify/compress";
 import fastifyProxy from "@fastify/http-proxy";
 import fastifyHelmet from "@fastify/helmet";
@@ -41,10 +40,6 @@ const PROJECT_PATH = "https://github.com/xhayper/DiscordProxy";
   app.register(fastifyCompress);
   app.register(fastifyHelmet, { global: true });
 
-  if (apiKeys.size > 0) {
-    app.register(fastifyBearer, { keys: apiKeys });
-  }
-
   app.register(fastifyUnderpressure, {
     maxEventLoopDelay: 1000,
     maxHeapUsedBytes: 100000000,
@@ -64,6 +59,20 @@ const PROJECT_PATH = "https://github.com/xhayper/DiscordProxy";
     prefix: "/api",
     rewritePrefix: "/api",
     preHandler: (request, reply, done) => {
+      if (config.apiKeys.length > 0) {
+        const headers = request.headers;
+        const apiKey = headers["proxy-authorization"];
+
+        if (!apiKey || !apiKeys.has(apiKey as string)) {
+          reply
+            .code(403)
+            .send({ error: "You are not allowed to use this proxy." });
+          return done();
+        }
+
+        delete headers["proxy-authorization"];
+      }
+
       if (!config.onlyRobloxServer) return done();
 
       const ip = request.ip;

@@ -20,7 +20,6 @@
   "author": "xhayper",
   "license": "ISC",
   "dependencies": {
-    "@fastify/bearer-auth": "^9.0.0",
     "@fastify/compress": "^6.4.0",
     "@fastify/helmet": "^11.0.0",
     "@fastify/http-proxy": "^9.2.1",

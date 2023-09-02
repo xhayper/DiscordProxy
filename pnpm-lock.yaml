@@ -5,9 +5,6 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@fastify/bearer-auth':
-    specifier: ^9.0.0
-    version: 9.0.0
   '@fastify/compress':
     specifier: ^6.4.0
     version: 6.4.0
@@ -76,12 +73,6 @@ packages:
       ajv: 8.12.0
       ajv-formats: 2.1.1(ajv@8.12.0)
       fast-uri: 2.2.0
-    dev: false
-
-  /@fastify/bearer-auth@9.0.0:
-    resolution: {integrity: sha512-I1egwg1LRdIvhjL/P+3UEfyK7A3YTnN3goTyf8MJ+v7vVkwyyd8ieccFKI0SzEuxMmfQh/p4yNyLZWcMVwpInA==}
-    dependencies:
-      fastify-plugin: 4.5.1
     dev: false
 
   /@fastify/compress@6.4.0:
